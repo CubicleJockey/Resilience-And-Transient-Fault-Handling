@@ -2,6 +2,8 @@
 
  * [Polly Website](http://www.thepollyproject.org)
  * [Polly .NET GitHub](https://github.com/App-vNext/Polly)
+ * [RestSharp](http://restsharp.org)
+ * [.NET Core Logging - Microsoft](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging)
  * [.NET Standard Documentation](https://docs.microsoft.com/en-us/dotnet/standard/choosing-core-framework-server)
  * [Fluent Assertions Documentation](http://fluentassertions.com/documentation.html)
  * [NUnit 3 Documentation](https://github.com/nunit/docs/wiki)
