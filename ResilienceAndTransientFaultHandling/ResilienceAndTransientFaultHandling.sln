@@ -3,30 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyResilience", "PollyResilience\PollyResilience.csproj", "{904EBA3B-E521-4D9C-8657-46E803045657}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions Items", "Solutions Items", "{51F8807A-DA6A-470C-A40E-42D3369F13EC}"
 	ProjectSection(SolutionItems) = preProject
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyResilience.UnitTests", "PollyResilience.UnitTests\PollyResilience.UnitTests.csproj", "{4A1D8A9D-DD04-42F6-8DDE-524D56BDBA71}"
-EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{904EBA3B-E521-4D9C-8657-46E803045657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{904EBA3B-E521-4D9C-8657-46E803045657}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{904EBA3B-E521-4D9C-8657-46E803045657}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{904EBA3B-E521-4D9C-8657-46E803045657}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A1D8A9D-DD04-42F6-8DDE-524D56BDBA71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A1D8A9D-DD04-42F6-8DDE-524D56BDBA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A1D8A9D-DD04-42F6-8DDE-524D56BDBA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A1D8A9D-DD04-42F6-8DDE-524D56BDBA71}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

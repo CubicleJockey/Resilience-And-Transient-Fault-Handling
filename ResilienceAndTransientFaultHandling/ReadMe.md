@@ -5,6 +5,7 @@
  * [.NET Standard Documentation](https://docs.microsoft.com/en-us/dotnet/standard/choosing-core-framework-server)
  * [Fluent Assertions Documentation](http://fluentassertions.com/documentation.html)
  * [NUnit 3 Documentation](https://github.com/nunit/docs/wiki)
+ * [JSON Server to create Mock RestApi points](https://github.com/typicode/json-server)
 
 ### License
 
