@@ -8,7 +8,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions Items", "Solution
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polly.Services", "Polly.Services\Polly.Services.csproj", "{2F4E3735-8B29-4464-973F-B472804603E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polly.Services.Tests", "Polly.Services.Tests\Polly.Services.Tests.csproj", "{52FC76D2-4C25-4C8D-9A50-20FE0C9F36D7}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F4E3735-8B29-4464-973F-B472804603E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F4E3735-8B29-4464-973F-B472804603E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F4E3735-8B29-4464-973F-B472804603E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F4E3735-8B29-4464-973F-B472804603E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52FC76D2-4C25-4C8D-9A50-20FE0C9F36D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52FC76D2-4C25-4C8D-9A50-20FE0C9F36D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52FC76D2-4C25-4C8D-9A50-20FE0C9F36D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52FC76D2-4C25-4C8D-9A50-20FE0C9F36D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
