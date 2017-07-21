@@ -17,5 +17,23 @@ namespace Polly.Policies
 
             return policy;
         }
+
+        public Policy Retry4TimesAndWaitExponentially()
+        {
+            var policy = Policy
+                .Handle<DivideByZeroException>()
+                .WaitAndRetry(4, (retryAttempt, context) =>
+                    {
+                        IList<string> attemptLog = (List<string>)context["AttemptLog"];
+                        var retryTime = TimeSpan.FromSeconds(Math.Pow(2, retryAttempt));
+
+                        attemptLog.Add($"Retry Wait-Time is {retryTime.TotalSeconds} seconds.");
+
+                        return retryTime;
+                    }
+                );
+
+            return policy;
+        }
     }
 }

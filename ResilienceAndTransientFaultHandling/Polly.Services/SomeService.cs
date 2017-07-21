@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading;
 using Polly.Policies;
+using Polly.Retry;
 
 namespace Polly.Services
 {
@@ -21,7 +23,7 @@ namespace Polly.Services
             retryPolicies = new Retries();
         }
 
-        public IEnumerable<string> Retry3Times()
+        public IEnumerable<string> DoSomeWork()
         {
             var timesTried = 0;
 
@@ -31,21 +33,37 @@ namespace Polly.Services
 
             retry3Policy.Execute(() =>
                 {
-                    //context[nameof(result)] = result;
-                    //context[nameof(timesTried)] = timesTried;
-                    if (timesTried < 2)
-                    {
-                        timesTried++;
-                        throw new TimeoutException();
-                    }
+                    if (timesTried >= 2) { return; }
+                    timesTried++;
+                    throw new TimeoutException();
                 },
                 contextData: new Dictionary<string, object>
                 {
-                    {nameof(result), result},
-                    {nameof(timesTried), timesTried}
+                    {nameof(result), result}
                 }
                 );
             return result;
+        }
+
+        public IEnumerable<string> DoMoreWork()
+        {
+            IList<string> AttemptLog = new List<string>();
+
+            var retryAndWaitPolicy = retryPolicies.Retry4TimesAndWaitExponentially();
+
+            var tryAttempts = 0;
+            retryAndWaitPolicy.Execute(
+                () =>
+                {
+                    if (tryAttempts++ < 3)
+                    {
+                        throw new DivideByZeroException();
+                    }
+                },
+                new Dictionary<string, object>{{nameof(AttemptLog), AttemptLog}});
+
+
+            return AttemptLog;
         }
     }
 }
