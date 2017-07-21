@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Polly" Version="5.2.0" />
+    <ProjectReference Include="..\Polly.Policies\Polly.Policies.csproj" />
   </ItemGroup>
 
 </Project>
