@@ -33,7 +33,6 @@ namespace Polly.Services
 
             policy.Execute(() =>
             {
-                
                 if (timesTried < 2)
                 {
                     throw new TimeoutException();
