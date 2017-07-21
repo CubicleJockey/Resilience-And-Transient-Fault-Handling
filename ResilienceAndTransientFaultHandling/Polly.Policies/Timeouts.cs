@@ -7,9 +7,11 @@ namespace Polly.Policies
     /// </summary>
     public class Timeouts
     {
-        //public TimeoutPolicy FiveSecondTimeout()
-        //{
-        //    //var policy = Policy.Handle<>()
-        //}
+        public TimeoutPolicy FiveSecondTimeout()
+        {
+            const int SECONDS = 5;
+            var policy = Policy.Timeout(SECONDS, TimeoutStrategy.Pessimistic);
+            return policy;
+        }
     }
 }
