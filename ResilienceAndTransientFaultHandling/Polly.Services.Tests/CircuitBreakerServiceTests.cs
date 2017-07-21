@@ -8,10 +8,25 @@ namespace Polly.Services.Tests
     [TestClass]
     public class CircuitBreakerServiceTests : TestBase
     {
-        
+
 
         [TestMethod]
-        public void BreakAndWait()
+        public void BreakAndWait_WaitTimeMet()
+        {
+            BreakAndWaitTest(true);
+        }
+
+
+
+        [TestMethod]
+        public void BreakAndWait_WaitTimeNotMet()
+        {
+            BreakAndWaitTest();
+        }
+
+        #region Helper Method
+
+        private void BreakAndWaitTest(bool waitRetryTime = false)
         {
             try
             {
@@ -20,8 +35,11 @@ namespace Polly.Services.Tests
             catch (BrokenCircuitException bcx)
             {
                 Assert.AreEqual("The circuit is now open and is not allowing calls.", bcx.Message);
-                
-                Thread.Sleep(3000); //Wait the 3 second retry limit.
+
+                if (waitRetryTime)
+                {
+                    Thread.Sleep(15000); //Wait the 3 second retry limit.
+                }
 
                 const bool THROWEXCEPTION = false;
 
@@ -29,14 +47,16 @@ namespace Polly.Services.Tests
                 {
                     service.DoTheBreakAndWait(THROWEXCEPTION);
                 }
-                catch (Exception)
+                catch (BrokenCircuitException)
                 {
-                    Assert.Fail("Should have exceeded.");
+                    Assert.Fail("Should have not met the broken circuit.");
                 }
 
                 return;
             }
             Assert.Fail("The Circuit should have Broken.");
         }
+
+        #endregion Helper Method
     }
 }

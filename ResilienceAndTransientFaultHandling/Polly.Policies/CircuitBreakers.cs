@@ -18,7 +18,7 @@ namespace Polly.Policies
         public CircuitBreakerPolicy BreakAndWait()
         {
             const int EXCEPTIONS_BEFORE_BREAK = 2;
-            var DURATION_OF_BREAK = TimeSpan.FromSeconds(3);
+            var DURATION_OF_BREAK = TimeSpan.FromSeconds(15);
 
             void OnBreak(Exception exception, TimeSpan timespan)
             {
