@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
+using Polly.CircuitBreaker;
 using Polly.Policies;
 using Polly.Retry;
 
@@ -10,6 +11,7 @@ namespace Polly.Services
     public class SomeService
     {
         private readonly Retries retryPolicies;
+        private readonly CircuitBreakers circuitBreakers;
 
         public string BaseUrl { get; }
 
@@ -20,7 +22,9 @@ namespace Polly.Services
                 throw new ArgumentException($"{nameof(baseUrl)} cannot be empty.", nameof(baseUrl));
             }
             BaseUrl = baseUrl;
+
             retryPolicies = new Retries();
+            circuitBreakers = new CircuitBreakers();
         }
 
         public IEnumerable<string> DoSomeWork()
@@ -64,6 +68,29 @@ namespace Polly.Services
 
 
             return AttemptLog;
+        }
+
+        public void DoTheBreakAndWait(bool throwException = true)
+        {
+            var breakAndWaitPolicy = circuitBreakers.BreakAndWait();
+
+            for (var i = 0; i < 3; i++)
+            {
+                try
+                {
+                    breakAndWaitPolicy.Execute(() =>
+                    {
+                        if (throwException)
+                        {
+                            throw new DivideByZeroException();
+                        }
+                    });
+                }
+                catch (DivideByZeroException)
+                {
+                    continue;
+                }
+            }
         }
     }
 }

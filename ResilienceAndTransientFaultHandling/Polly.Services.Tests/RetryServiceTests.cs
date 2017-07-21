@@ -7,15 +7,8 @@ using Polly.Policies;
 namespace Polly.Services.Tests
 {
     [TestClass]
-    public class SomeServiceTests
+    public class RetryServiceTests : TestBase
     {
-        private readonly SomeService service;
-
-        public SomeServiceTests()
-        {
-            service = new SomeService("http://localhost");
-        }
-
         [TestMethod]
         public void Retry3Times()
         {
@@ -46,8 +39,6 @@ namespace Polly.Services.Tests
                 Assert.AreEqual(expected, result[i]);
                 WriteLine(expected);
             }
-           
-            
         }
     }
 }

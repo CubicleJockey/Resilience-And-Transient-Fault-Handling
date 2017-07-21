@@ -4,6 +4,9 @@ using Polly.Retry;
 
 namespace Polly.Policies
 {
+    /// <summary>
+    /// https://github.com/App-vNext/Polly/wiki/Retry
+    /// </summary>
     public class Retries
     {
         public RetryPolicy Retry3Times()
