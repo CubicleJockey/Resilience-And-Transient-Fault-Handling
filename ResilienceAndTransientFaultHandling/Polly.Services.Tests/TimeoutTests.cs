@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using static System.Console;
+using Polly.Timeout;
 
 namespace Polly.Services.Tests
 {
@@ -8,7 +11,16 @@ namespace Polly.Services.Tests
         [TestMethod]
         public void Timeout()
         {
-            service.LongRunningThingy();
+            try
+            {
+                service.LongRunningThingy();
+            }
+            catch (TimeoutRejectedException trx)
+            {
+                Assert.AreEqual("The delegate executed through TimeoutPolicy did not complete within the timeout.", trx.Message);
+                return;
+            }
+            Assert.Fail("Should have timed out.");
         }
     }
 }

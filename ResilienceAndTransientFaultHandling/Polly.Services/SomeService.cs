@@ -109,7 +109,10 @@ namespace Polly.Services
         public void LongRunningThingy()
         {
             var timeoutPolicy = timeouts.TwoSecondTimeout();
-            timeoutPolicy.Execute(() => Thread.Sleep(18000));
+            timeoutPolicy.Execute(() =>
+            {
+                Thread.Sleep(100000);
+            });
         }
     }
 }

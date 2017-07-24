@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Polly.Timeout;
+using static System.Console;
 
 namespace Polly.Policies
 {
@@ -13,10 +14,11 @@ namespace Polly.Policies
         {
             void OnTimeout(Context context, TimeSpan time, Task task)
             {
-                throw new TimeoutException($"Oh noes we timed out and such. After {time.TotalSeconds}.");
+                WriteLine($"Pretend Logging - Execution {context.ExecutionKey} timeout in {time.TotalSeconds} seconds.");
+                //throw new TimeoutException($"Oh noes we timed out and such. After {time.TotalSeconds}.");
             }
 
-            var policy = Policy.Timeout(2, OnTimeout);
+            var policy = Policy.Timeout(2, TimeoutStrategy.Pessimistic, OnTimeout);
             return policy;
         }
     }
