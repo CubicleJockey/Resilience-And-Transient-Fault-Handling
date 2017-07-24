@@ -6,10 +6,10 @@ namespace Polly.Services.Tests
     [TestClass]
     public class FallBackServiceTests : TestBase
     {
-        [TestMethod]
+        [TestMethod, Ignore]
         public void BasicFallback()
         {
-            service.FallingWayBack<NotImplementedException>();
+            //service.FallingWayBack<NotImplementedException>();
         }
     }
 }

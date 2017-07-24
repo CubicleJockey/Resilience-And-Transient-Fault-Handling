@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -12,6 +12,7 @@ namespace Polly.Services
         private readonly CircuitBreakers circuitBreakers;
         private readonly Timeouts timeouts;
         private readonly FallBacks fallbacks;
+        private readonly Wraps wraps;
 
         public string BaseUrl { get; }
 
@@ -27,6 +28,7 @@ namespace Polly.Services
             circuitBreakers = new CircuitBreakers();
             timeouts = new Timeouts();
             fallbacks = new FallBacks();
+            wraps = new Wraps();
         }
 
         public IEnumerable<string> DoSomeWork()
@@ -39,7 +41,10 @@ namespace Polly.Services
 
             retry3Policy.Execute(() =>
                 {
-                    if (timesTried >= 2) { return; }
+                    if (timesTried >= 2)
+                    {
+                        return;
+                    }
                     timesTried++;
                     throw new TimeoutException();
                 },
@@ -47,7 +52,7 @@ namespace Polly.Services
                 {
                     {nameof(result), result}
                 }
-                );
+            );
             return result;
         }
 
@@ -66,7 +71,7 @@ namespace Polly.Services
                         throw new DivideByZeroException();
                     }
                 },
-                new Dictionary<string, object>{{nameof(AttemptLog), AttemptLog}});
+                new Dictionary<string, object> {{nameof(AttemptLog), AttemptLog}});
 
 
             return AttemptLog;
@@ -95,17 +100,16 @@ namespace Polly.Services
             }
         }
 
-        public void TakingTooLongOrSomething()
+        public void ChainedPolicies()
         {
-            var timeoutPolicy = timeouts.FiveSecondTimeout();
-            timeoutPolicy.Execute(() => Thread.Sleep(18000));
+            var wrap = wraps.WrapRetryAndBreak();
+            wrap.Execute(() => throw new Exception("Oh noes n' stuff!"));
         }
 
-        public void FallingWayBack<TException>() where TException: Exception, new()
+        public void LongRunningThingy()
         {
-            var fallbackPolicy = fallbacks.FallBack<TException>();
-
-            fallbackPolicy.Execute(() => throw new TException());
+            var timeoutPolicy = timeouts.TwoSecondTimeout();
+            timeoutPolicy.Execute(() => Thread.Sleep(18000));
         }
     }
 }

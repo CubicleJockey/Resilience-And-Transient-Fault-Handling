@@ -7,19 +7,12 @@ namespace Polly.Services.Tests
     public class TimeoutServiceTests : TestBase
     {
         [TestMethod]
-        public void FiveSecondTimeouts()
+        public void Timeout()
         {
 
-            try
-            {
-                service.TakingTooLongOrSomething();
-            }
-            catch (TimeoutRejectedException trx)
-            {
-                Assert.AreEqual("The delegate executed through TimeoutPolicy did not complete within the timeout.", trx.Message);
-                return;
-            }
-            Assert.Fail($"Should have gotten a {nameof(TimeoutRejectedException)}");
+
+                service.LongRunningThingy();
+            
         }
     }
 }

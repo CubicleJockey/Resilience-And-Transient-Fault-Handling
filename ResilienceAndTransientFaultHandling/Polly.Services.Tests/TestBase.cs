@@ -1,10 +1,10 @@
 ﻿namespace Polly.Services.Tests
 {
-    public class TestBase
+    public abstract class TestBase
     {
         protected SomeService service;
 
-        public TestBase()
+        protected TestBase()
         {
             service = new SomeService("http://localhost");
         }
