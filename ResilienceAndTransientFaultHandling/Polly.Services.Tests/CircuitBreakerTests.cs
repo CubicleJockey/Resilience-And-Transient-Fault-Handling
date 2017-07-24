@@ -6,7 +6,7 @@ using Polly.CircuitBreaker;
 namespace Polly.Services.Tests
 {
     [TestClass]
-    public class CircuitBreakerServiceTests : TestBase
+    public class CircuitBreakerTests : TestBase
     {
 
 

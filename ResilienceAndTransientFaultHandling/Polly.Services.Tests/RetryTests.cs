@@ -7,7 +7,7 @@ using Polly.Policies;
 namespace Polly.Services.Tests
 {
     [TestClass]
-    public class RetryServiceTests : TestBase
+    public class RetryTests : TestBase
     {
         [TestMethod]
         public void Retry3Times()
