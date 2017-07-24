@@ -1,4 +1,6 @@
-﻿using Polly.Timeout;
+﻿using System;
+using System.Threading.Tasks;
+using Polly.Timeout;
 
 namespace Polly.Policies
 {
@@ -7,9 +9,15 @@ namespace Polly.Policies
     /// </summary>
     public class Timeouts
     {
-        //public TimeoutPolicy FiveSecondTimeout()
-        //{
-        //    //var policy = Policy.Handle<>()
-        //}
+        public TimeoutPolicy TwoSecondTimeout()
+        {
+            void OnTimeout(Context context, TimeSpan time, Task task)
+            {
+                throw new TimeoutException($"Oh noes we timed out and such. After {time.TotalSeconds}.");
+            }
+
+            var policy = Policy.Timeout(2, OnTimeout);
+            return policy;
+        }
     }
 }

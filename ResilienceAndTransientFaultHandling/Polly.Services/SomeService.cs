@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading;
-using Polly.CircuitBreaker;
 using Polly.Policies;
-using Polly.Retry;
 
 namespace Polly.Services
 {
@@ -12,6 +9,8 @@ namespace Polly.Services
     {
         private readonly Retries retryPolicies;
         private readonly CircuitBreakers circuitBreakers;
+        private readonly Wraps wraps;
+        private readonly Timeouts timeouts;
 
         public string BaseUrl { get; }
 
@@ -25,6 +24,8 @@ namespace Polly.Services
 
             retryPolicies = new Retries();
             circuitBreakers = new CircuitBreakers();
+            wraps = new Wraps();
+            timeouts = new Timeouts();
         }
 
         public IEnumerable<string> DoSomeWork()
@@ -91,6 +92,21 @@ namespace Polly.Services
                     continue;
                 }
             }
+        }
+
+        public void ChainedPolicies()
+        {
+            var wrap = wraps.WrapRetryAndBreak();
+            wrap.Execute(() => throw new Exception("Oh noes n' stuff!"));
+        }
+
+        public void LongRunningThingy()
+        {
+            var timeout = timeouts.TwoSecondTimeout();
+            timeout.Execute(() =>
+            {
+                Thread.Sleep(10000000);
+            }); 
         }
     }
 }
