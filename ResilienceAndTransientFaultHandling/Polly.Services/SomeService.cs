@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading;
 using Polly.Policies;
 
@@ -9,8 +10,8 @@ namespace Polly.Services
     {
         private readonly Retries retryPolicies;
         private readonly CircuitBreakers circuitBreakers;
-        private readonly Wraps wraps;
         private readonly Timeouts timeouts;
+        private readonly FallBacks fallbacks;
 
         public string BaseUrl { get; }
 
@@ -24,8 +25,8 @@ namespace Polly.Services
 
             retryPolicies = new Retries();
             circuitBreakers = new CircuitBreakers();
-            wraps = new Wraps();
             timeouts = new Timeouts();
+            fallbacks = new FallBacks();
         }
 
         public IEnumerable<string> DoSomeWork()
@@ -94,19 +95,17 @@ namespace Polly.Services
             }
         }
 
-        public void ChainedPolicies()
+        public void TakingTooLongOrSomething()
         {
-            var wrap = wraps.WrapRetryAndBreak();
-            wrap.Execute(() => throw new Exception("Oh noes n' stuff!"));
+            var timeoutPolicy = timeouts.FiveSecondTimeout();
+            timeoutPolicy.Execute(() => Thread.Sleep(18000));
         }
 
-        public void LongRunningThingy()
+        public void FallingWayBack<TException>() where TException: Exception, new()
         {
-            var timeout = timeouts.TwoSecondTimeout();
-            timeout.Execute(() =>
-            {
-                Thread.Sleep(10000000);
-            }); 
+            var fallbackPolicy = fallbacks.FallBack<TException>();
+
+            fallbackPolicy.Execute(() => throw new TException());
         }
     }
 }
